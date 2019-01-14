@@ -12,6 +12,8 @@ The general idea of the task will be to develop a single page application that e
 
 The following paragraphs will give a more detailed overview of the three main functions: picking a pokemon, choosing the moves and adding it to your line-up.
 
+Feel free to use as many open source components as you like. For the autocomplete our go to component is [Downshift](https://github.com/paypal/downshift).
+
 ![Final image](docs/images/screen.png)
 
 # Source code
@@ -20,7 +22,7 @@ When you are finished with your version, please host this somewhere on Github an
 
 ## Picking a Pokémon
 
-Using the API, you will be fetching a complete list of all avaible pokemon. This list will be presented to the user. To display this autocomplete we will be using a react component called [Downshift](https://github.com/paypal/downshift).
+Using the API, you will be fetching a complete list of all avaible pokemon. This list will be presented to the user.
 
 The user should also have the ability to filter this list through a text input. When entering a value in the input field, only pokemon names starting with the provided input should still be visible.
 
@@ -101,33 +103,33 @@ We are only interested in the `move.identifier` field and the first element in `
 
 There are a total of 4 colors used for general styling.
 
-Blue: #3A5D9F
-Yellow: #FDCC07
-White: #FFFFFF
-Grey: #C1C8CA
+- Blue: #3A5D9F
+- Yellow: #FDCC07
+- White: #FFFFFF
+- Grey: #C1C8CA
 
 As discussed in a previous point, all selected pokemon will have the background-color corresponding to their type.
 
 The list of colors corresponding to every type:
 
-Normal Type: #A8A77A
-Fire Type: #EE8130
-Water Type: #6390F0
-Electric Type: #F7D02C
-Grass Type: #7AC74C
-Ice Type: #96D9D6
-Fighting Type: #C22E28
-Poison Type: #A33EA1
-Ground Type: #E2BF65
-Flying Type: #A98FF3
-Psychic Type: #F95587
-Bug Type: #A6B91A
-Rock Type: #B6A136
-Ghost Type: #735797
-Dragon Type: #6F35FC
-Dark Type: #705746
-Steel Type: #B7B7CE
-Fairy Type: #D685AD
+- Normal Type: #A8A77A
+- Fire Type: #EE8130
+- Water Type: #6390F0
+- Electric Type: #F7D02C
+- Grass Type: #7AC74C
+- Ice Type: #96D9D6
+- Fighting Type: #C22E28
+- Poison Type: #A33EA1
+- Ground Type: #E2BF65
+- Flying Type: #A98FF3
+- Psychic Type: #F95587
+- Bug Type: #A6B91A
+- Rock Type: #B6A136
+- Ghost Type: #735797
+- Dragon Type: #6F35FC
+- Dark Type: #705746
+- Steel Type: #B7B7CE
+- Fairy Type: #D685AD
 
 # Technical requirements
 
