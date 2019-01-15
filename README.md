@@ -36,20 +36,7 @@ This detail section will extract the pokemon's stats, moves and type and will di
 
 The image will be display above the name. The stats will be presented in a 2x3 grid. The moves will be divided in the possible ways of learning them. Do note that not all pokemon have moves in all 4 ways (level-up, tutor, egg, machine).
 
-You can select these moves and they will be added to the list of selected moves. The amount of selected moves is limited to 4. The amount is not the only limitation, as 3 of the 4 learning methods should only have maximun 1 selected move. I.e. you can only have 1 machine-learned move, 1 egg-learned move and 1 tutor-learned move. The amount of level-up-learned moves is unlimited.
-
-Examples of combinations that are allowed:
-
-- 1 egg-learned move, 1 tutor-learned move, 1 machine-learned move, 1 level-up-learned move
-- 1 tutor-learned move, 2 level-up learned moves
-- 4 level-up learned moves
-- 1 egg-learned move
-
-Examples that are not allowed:
-
-- No moves
-- 2 tutor-learned moves
-- 2 level-up-learned moves and 2 machine-learned moves
+You can select these moves and they will be added to the list of selected moves. The amount of selected moves is limited to 4.
 
 To remove a move from the selected moves, you have to click the move in the move-list again. The move-list thus functions as a toggle as to selecting and unselecting a move.
 
@@ -57,14 +44,14 @@ Clicking "Save pokemon" will add that pokemon to your squad with the moves you s
 
 # API Detail
 
-To save you from having to dig through the API docs, here is an [igraphql](https://graphql-pokemon.now.sh) interface to query the data. The graphql endpoint is https://pokeql.com/. It's also saved inside `process.env.REACT_APP_POKE_ENDPOINT` so you can use it in your application.
+To save you from having to dig through the API docs, here is an [igraphql](https://graphql-pokemon.now.sh) interface to query the data. The graphql endpoint is https://p5k91xxvoq.sse.codesandbox.io/. It's also saved inside `process.env.REACT_APP_POKE_ENDPOINT` so you can use it in your application.
 
 You will be using 2 queries, one for listing all available pokemon and one for getting more detail about a single pokemon.
 
 ## All available pokemon
 
 ```
-Pokemon(first: 151) {
+Pokemons(first: 151) {
   fields
 }
 ```
@@ -74,7 +61,7 @@ Calling this query will return you a list of all pokemon
 ## Pokemon detail
 
 ```
-Pokemon(filter: {identifier: "snorlax"}) {
+Pokemon(name: "snorlax") {
   fields
 }
 ```
@@ -83,21 +70,21 @@ Calling this endpoint will return you a detailed overview of the requested pokem
 
 You are interested in 4 fields.
 
-### Sprites`
+### Image`
 
-We will want to use `sprites.normal.mail.front` as our pokemon image.
+We will want to use `image` as our pokemon image.
 
 ### pokemonStats
 
-We are only interested in the `base_stat` and `stat` object, where we'll only be using the `stat.identifier` field.
+We are only interested in the `value` and `name` fields.
 
 ### Types
 
-We are only interested in the type that is in `slot` 1. From this stat, we are only interested in the `type.identifier` field.
+We are only interested in the first item of the `types` array.
 
-### Moves
+### Abilities
 
-We are only interested in the `move.identifier` field and the first element in `pokemonMoveMethod`. In this task, the first element's `pokemonMoveMethod.identifier` is the one that determinates the move's method.
+We are only interested in the `name` of an ability.
 
 # Colors
 
