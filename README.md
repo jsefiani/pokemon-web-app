@@ -44,7 +44,7 @@ Clicking "Save pokemon" will add that pokemon to your squad with the moves you s
 
 # API Detail
 
-To save you from having to dig through the API docs, here is an [igraphql](https://graphql-pokemon.now.sh) interface to query the data. The graphql endpoint is https://p5k91xxvoq.sse.codesandbox.io/. It's also saved inside `process.env.REACT_APP_POKE_ENDPOINT` so you can use it in your application.
+To save you from having to dig through the API docs, here is an [Graphql playground](https://p5k91xxvoq.sse.codesandbox.io/) interface to query the data. The graphql endpoint is https://p5k91xxvoq.sse.codesandbox.io/. It's also saved inside `process.env.REACT_APP_POKE_ENDPOINT` so you can use it in your application.
 
 You will be using 2 queries, one for listing all available pokemon and one for getting more detail about a single pokemon.
 
