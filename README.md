@@ -1,6 +1,6 @@
 # Frontend recruitment
 
-This is an exercise to test your knowledge of **React**, **styled-components** & **GraphQL**. You shouldn't spend more than X hours on it. If you don't finish the exercise between these hours that's not a problem as long as you can write down why and how you would finish the exercise.
+This is an exercise to test your knowledge of **React**, **styled-components** & **GraphQL**. You shouldn't spend more than 3 hours on it. If you don't finish the exercise between these hours that's not a problem as long as you can write down why and how you would finish the exercise.x
 
 Don't worry to much about the code you produce, there is **no correct solution**. We will have a chat about this exercise anyway so you have time to talk about shortcuts you made.
 
