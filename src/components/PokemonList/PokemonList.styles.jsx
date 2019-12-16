@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const PokemonListContainer = styled.ul`
 	padding: 0;
-	height: 150px;
+	height: 300px;
 	overflow-y: scroll;
 	width: 200px;
 `;
