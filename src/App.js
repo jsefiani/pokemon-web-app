@@ -8,7 +8,7 @@ import PokemonDetails from './components/PokemonDetails';
 
 const Logo = styled.img`
 	display: block;
-	margin: 0 auto;
+	margin: 20px auto;
 	max-width: 200px;
 `;
 
