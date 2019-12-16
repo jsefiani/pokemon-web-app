@@ -8,8 +8,8 @@ import Col from 'react-bootstrap/Col';
 import PokemonStats from '../PokemonStats';
 import PokemonSelectedMoves from '../PokemonSelectedMoves';
 import PokemonAvatar from '../PokemonAvatar';
+import PokemonMoves from '../PokemonMoves';
 import { PokemonDetailsHeading } from '../_common/_common.styles';
-import { PokemonDetailsMovesContainer } from './PokemonDetails.styles';
 
 const GET_SELECTED_POKEMON_NAME = gql`
 	{
@@ -42,17 +42,9 @@ const GET_POKEMON = gql`
 	}
 `;
 
-const TOGGLE_POKEMON_MOVE = gql`
-	mutation TogglePokemonMove(
-		$name: String
-		$selectedPokemonMove: SelectedPokemonMove!
-		$id: ID!
-	) {
-		togglePokemonMove(
-			name: $name
-			selectedPokemonMove: $selectedPokemonMove
-			id: $id
-		) @client
+const ADD_POKEMON_TO_SQUADLIST = gql`
+	mutation AddPokemonToSquadList($name: String, $id: ID!) {
+		addPokemonToSquadList(name: $name, id: $id) @client
 	}
 `;
 
@@ -65,7 +57,7 @@ const PokemonDetails = props => {
 		variables: { name: selectedPokemonName }
 	});
 
-	const [togglePokemonMove] = useMutation(TOGGLE_POKEMON_MOVE);
+	const [addPokemonToSquadList] = useMutation(ADD_POKEMON_TO_SQUADLIST);
 
 	if (!data?.hasOwnProperty('Pokemon')) return null;
 
@@ -76,7 +68,15 @@ const PokemonDetails = props => {
 					<div>
 						<PokemonAvatar imageUrl={data.Pokemon.image} />
 						<h2>{data.Pokemon.name}</h2>
-						<button>Save Pokemon</button>
+						<button
+							onClick={() =>
+								addPokemonToSquadList({
+									variables: { name: selectedPokemonName }
+								})
+							}
+						>
+							Save Pokemon
+						</button>
 					</div>
 				</Col>
 				<Col xs={6}>
@@ -91,29 +91,7 @@ const PokemonDetails = props => {
 				</Col>
 				<Col>
 					<PokemonDetailsHeading>Moves</PokemonDetailsHeading>
-					<PokemonDetailsMovesContainer>
-						{data.Pokemon.moves.map(
-							({ name, learnMethod }, index) => (
-								<li
-									key={index}
-									onClick={() =>
-										togglePokemonMove({
-											variables: {
-												id: data.Pokemon.id,
-												name: selectedPokemonName,
-												selectedPokemonMove: {
-													name,
-													learnMethod
-												}
-											}
-										})
-									}
-								>
-									{name}
-								</li>
-							)
-						)}
-					</PokemonDetailsMovesContainer>
+					<PokemonMoves moves={data.Pokemon.moves} />
 				</Col>
 			</Row>
 		</Container>
