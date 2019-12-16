@@ -5,6 +5,7 @@ import client from './graphql';
 
 import PokemonList from './components/PokemonList';
 import PokemonDetails from './components/PokemonDetails';
+import PokemonSquadList from './components/PokemonSquadList';
 
 const Logo = styled.img`
 	display: block;
@@ -31,6 +32,7 @@ class App extends Component {
 						<PokemonList />
 						<PokemonDetails />
 					</Layout>
+					<PokemonSquadList />
 				</Container>
 			</ApolloProvider>
 		);
