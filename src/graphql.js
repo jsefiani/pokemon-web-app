@@ -12,7 +12,7 @@ export default new ApolloClient({
 		defaults: {
 			selectedPokemonName: ''
 		},
-		typeDefs,
 		resolvers
-	}
+	},
+	typeDefs
 });
