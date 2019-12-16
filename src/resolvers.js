@@ -79,6 +79,44 @@ export const resolvers = {
 			});
 
 			return data.Pokemon.selectedMoves;
+		},
+		addPokemonToSquadList: (_root, { name, id }, { cache }) => {
+			const GET_POKEMON = gql`
+				query GetPokemon($name: String!) {
+					Pokemon(name: $name) @client {
+						id
+						name
+						image
+						selectedMoves
+					}
+				}
+			`;
+
+			const GET_POKEMON_SQUADLIST = gql`
+				{
+					pokemonSquadList @client
+				}
+			`;
+
+			const { Pokemon } = cache.readQuery({
+				query: GET_POKEMON,
+				variables: { name }
+			});
+
+			const { pokemonSquadList } = cache.readQuery({
+				query: GET_POKEMON_SQUADLIST
+			});
+
+			if (pokemonSquadList.length > 5) return pokemonSquadList;
+
+			const newPokemonSquadList = [...pokemonSquadList, Pokemon];
+
+			cache.writeQuery({
+				query: GET_POKEMON_SQUADLIST,
+				data: { pokemonSquadList: newPokemonSquadList }
+			});
+
+			return newPokemonSquadList;
 		}
 	}
 };
