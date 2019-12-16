@@ -1,5 +1,5 @@
 import React from 'react';
 
-const PokemonAvatar = ({ image }) => <img alt="Pokemon" src={image} />;
+const PokemonAvatar = ({ imageUrl }) => <img alt="Pokemon" src={imageUrl} />;
 
 export default PokemonAvatar;
