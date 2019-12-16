@@ -10,7 +10,8 @@ export default new ApolloClient({
 	clientState: {
 		cache,
 		defaults: {
-			selectedPokemonName: ''
+			selectedPokemonName: '',
+			pokemonSquadList: []
 		},
 		resolvers
 	},
