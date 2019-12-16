@@ -2,16 +2,31 @@ import { gql } from 'apollo-boost';
 
 export const typeDefs = gql`
 	extend type Pokemon {
-		id: ID!
+		selectedMoves: [SelectedPokemonMove!]!
+		moves: [PokemonMove!]!
+	}
+
+	type SelectedPokemonMove {
+		learningMethod: String!
 		name: String!
 	}
 
-	type Query {
-		Pokemons: [Pokemon!]!
+	type PokemonMove {
+		learningMethod: String!
+		name: String!
+		isSelected: Boolean!
+	}
+
+	extend type Query {
+		Pokemon(name: String!): Pokemon!
 		selectedPokemonName: String!
 	}
 
-	type Mutation {
+	extend type Mutation {
 		setPokemonName(name: String!): selectedPokemonName!
+		addPokemonMove(
+			name: String!
+			selectedPokemonMove: SelectedPokemonMove!
+		): [SelectedPokemonMove!]!
 	}
 `;
