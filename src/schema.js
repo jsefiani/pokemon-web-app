@@ -7,12 +7,12 @@ export const typeDefs = gql`
 	}
 
 	type SelectedPokemonMove {
-		learningMethod: String!
+		learnMethod: String!
 		name: String!
 	}
 
 	type PokemonMove {
-		learningMethod: String!
+		learnMethod: String!
 		name: String!
 		isSelected: Boolean!
 	}
@@ -23,8 +23,8 @@ export const typeDefs = gql`
 	}
 
 	extend type Mutation {
-		setPokemonName(name: String!): selectedPokemonName!
-		addPokemonMove(
+		SetPokemonName(name: String!): selectedPokemonName!
+		TogglePokemonMove(
 			name: String!
 			selectedPokemonMove: SelectedPokemonMove!
 		): [SelectedPokemonMove!]!
