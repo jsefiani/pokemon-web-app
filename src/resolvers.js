@@ -2,6 +2,7 @@ import { gql } from 'apollo-boost';
 
 export const resolvers = {
 	Pokemon: {
+		// ? Adding this property to existing Pokemon type
 		selectedMoves: () => []
 	},
 	Mutation: {
@@ -18,15 +19,15 @@ export const resolvers = {
 
 			return name;
 		},
-		addPokemonMove: (
+		togglePokemonMove: (
 			_root,
 			{ id, name, selectedPokemonMove },
 			{ cache }
 		) => {
-			console.log('addPokemonMove', { id });
 			const GET_POKEMON = gql`
 				query GetPokemon($name: String!) {
 					Pokemon(name: $name) @client {
+						id
 						selectedMoves
 					}
 				}
@@ -37,30 +38,47 @@ export const resolvers = {
 				variables: { name }
 			});
 
-			if (Pokemon.selectedMoves.length > 3) return Pokemon.selectedMoves;
+			// ? Here we check whether the pokemon move has been selected before in order to determine whether we need to remove it or not
+			const hasBeenSelected = Pokemon.selectedMoves.some(
+				({ name }) => name === selectedPokemonMove.name
+			);
 
-			const data = {
-				Pokemon: {
-					...Pokemon,
-					selectedMoves: [
-						...Pokemon.selectedMoves,
-						{ ...selectedPokemonMove, __typename: 'PokemonMove' }
-					]
-				}
-			};
+			if (!hasBeenSelected && Pokemon.selectedMoves.length > 3)
+				return Pokemon.selectedMoves;
 
-			cache.writeData({
+			const data = hasBeenSelected
+				? {
+						Pokemon: {
+							...Pokemon,
+							selectedMoves: [
+								...Pokemon.selectedMoves.filter(
+									({ name }) =>
+										name !== selectedPokemonMove.name
+								)
+							]
+						}
+				  }
+				: {
+						Pokemon: {
+							...Pokemon,
+							selectedMoves: [
+								...Pokemon.selectedMoves,
+								{
+									...selectedPokemonMove,
+									__typename: 'PokemonMove'
+								}
+							]
+						}
+				  };
+
+			cache.writeQuery({
 				id,
 				query: GET_POKEMON,
 				data,
 				variables: { name }
 			});
 
-			console.log('addMove', {
-				selectedPokemonMove,
-				pokemon: Pokemon
-			});
-			return Pokemon.selectedMoves;
+			return data.Pokemon.selectedMoves;
 		}
 	}
 };
