@@ -42,13 +42,13 @@ const GET_POKEMON = gql`
 	}
 `;
 
-const ADD_POKEMON_MOVE = gql`
-	mutation AddPokemonMove(
+const TOGGLE_POKEMON_MOVE = gql`
+	mutation TogglePokemonMove(
 		$name: String
 		$selectedPokemonMove: SelectedPokemonMove!
 		$id: ID!
 	) {
-		addPokemonMove(
+		togglePokemonMove(
 			name: $name
 			selectedPokemonMove: $selectedPokemonMove
 			id: $id
@@ -65,7 +65,7 @@ const PokemonDetails = props => {
 		variables: { name: selectedPokemonName }
 	});
 
-	const [addPokemonMove] = useMutation(ADD_POKEMON_MOVE);
+	const [togglePokemonMove] = useMutation(TOGGLE_POKEMON_MOVE);
 
 	if (!data?.hasOwnProperty('Pokemon')) return null;
 
@@ -74,7 +74,7 @@ const PokemonDetails = props => {
 			<Row>
 				<Col>
 					<div>
-						<PokemonAvatar image={data.Pokemon.image} />
+						<PokemonAvatar imageUrl={data.Pokemon.image} />
 						<h2>{data.Pokemon.name}</h2>
 						<button>Save Pokemon</button>
 					</div>
@@ -93,17 +93,17 @@ const PokemonDetails = props => {
 					<PokemonDetailsHeading>Moves</PokemonDetailsHeading>
 					<PokemonDetailsMovesContainer>
 						{data.Pokemon.moves.map(
-							({ name, learningMethod }, index) => (
+							({ name, learnMethod }, index) => (
 								<li
 									key={index}
 									onClick={() =>
-										addPokemonMove({
+										togglePokemonMove({
 											variables: {
 												id: data.Pokemon.id,
 												name: selectedPokemonName,
 												selectedPokemonMove: {
 													name,
-													learningMethod
+													learnMethod
 												}
 											}
 										})
